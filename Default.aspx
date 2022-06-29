@@ -21,8 +21,7 @@
         </div>
 
         <asp:GridView ID="Gridview1" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
-            OnRowCommand="GridView1_RowCommand" Width="668px" OnRowDataBound="Gridview1_RowDataBound" OnRowDeleted="Gridview1_RowDeleted"
-            OnRowDeleting="Gridview1_RowDeleting">
+            OnRowCommand="GridView1_RowCommand" Width="668px" OnRowDataBound="Gridview1_RowDataBound">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Id" />
                 <asp:BoundField DataField="Nome" HeaderText="Nome" />

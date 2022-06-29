@@ -179,19 +179,5 @@ namespace ConsumirAPI
                 DataBinder.Eval(e.Row.DataItem, "Id") + "')");
             }
         }
-
-        protected void Gridview1_RowDeleted(object sender, GridViewDeletedEventArgs e)
-        {
-        }
-
-        protected void Gridview1_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            //int _index = (int)Gridview1.DataKeys[e.RowIndex].Value;
-            ////string _chave = Gridview1.DataKeys[_index]["Id"].ToString();
-
-            //Delete(_index);
-            //getAll();
-            ////Delete(int.Parse(_chave));
-        }
     }
 }
