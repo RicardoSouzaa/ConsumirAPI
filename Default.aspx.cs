@@ -66,10 +66,13 @@ namespace ConsumirAPI
 
             if (e.CommandName == "Excluir")
             {
-                int _index = int.Parse((string)e.CommandArgument);
-                string _chave = Gridview1.DataKeys[_index]["Id"].ToString();
+                //int _index = int.Parse((string)e.CommandArgument);
+                //string _chave = Gridview1.DataKeys[_index]["Id"].ToString();
+                //Delete(int.Parse(_chave));
 
-                Delete(int.Parse(_chave));
+                int _index = Convert.ToInt32(e.CommandArgument);
+
+                Delete(_index);
             }
         }
 
@@ -77,10 +80,14 @@ namespace ConsumirAPI
         {
             HttpResponseMessage response = client.GetAsync("api/usuario/" + Id).Result;
             response = client.DeleteAsync("api/usuario/" + Id).Result;
+
             if (response.IsSuccessStatusCode)
             {
                 usuarioUri = response.Headers.Location;
-                Console.WriteLine("Deletado com sucesso!!!");
+                Response.Write("Usuario deletado.");
+
+                //string script = "alert(\"Usuário excluido com sucesso!\");";
+                //ScriptManager.RegisterStartupScript(this, GetType(), "ServerControlScript", script, true);
             }
             else
             {
@@ -114,6 +121,8 @@ namespace ConsumirAPI
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
             Enviar(txtNome.Text);
+            txtNome.Text = "";
+            txtNome.Focus();
         }
 
         private string Enviar(string name)
@@ -160,10 +169,29 @@ namespace ConsumirAPI
             getAll();
         }
 
-        //private void Adicionar(int Id)
-        //{
-        //    HttpResponseMessage response = client.GetAsync("api/usuario" + Id).Result;
-        //    response = client.PutAsync("api/usuario" + Id).Result;
-        //}
+        protected void Gridview1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                LinkButton l = (LinkButton)e.Row.FindControl("LinkButton1");
+                l.Attributes.Add("onclick", "javascript:return " +
+                "confirm('Tem certeza que deseja Excluir o Usuário? " +
+                DataBinder.Eval(e.Row.DataItem, "Id") + "')");
+            }
+        }
+
+        protected void Gridview1_RowDeleted(object sender, GridViewDeletedEventArgs e)
+        {
+        }
+
+        protected void Gridview1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            //int _index = (int)Gridview1.DataKeys[e.RowIndex].Value;
+            ////string _chave = Gridview1.DataKeys[_index]["Id"].ToString();
+
+            //Delete(_index);
+            //getAll();
+            ////Delete(int.Parse(_chave));
+        }
     }
 }

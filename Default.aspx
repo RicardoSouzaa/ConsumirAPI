@@ -20,11 +20,17 @@
         <asp:HiddenField ID="HdId" runat="server" />
         </div>
 
-        <asp:GridView ID="Gridview1" runat="server" AutoGenerateColumns="false" DataKeyNames="Id" OnRowCommand="GridView1_RowCommand" Width="668px">
+        <asp:GridView ID="Gridview1" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
+            OnRowCommand="GridView1_RowCommand" Width="668px" OnRowDataBound="Gridview1_RowDataBound" OnRowDeleted="Gridview1_RowDeleted"
+            OnRowDeleting="Gridview1_RowDeleting">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Id" />
                 <asp:BoundField DataField="Nome" HeaderText="Nome" />
-                <asp:ButtonField ButtonType="Link" CommandName="Excluir" Text="Excluir" HeaderText="Excluir" />
+                <asp:TemplateField HeaderText="Excluir" ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="false" CommandArgument='<%# Eval("Id") %>' CommandName="Excluir" Text="Excluir"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:ButtonField ButtonType="Link" CommandName="Atualizar" Text="Atualizar" HeaderText="Atualizar" />
             </Columns>
         </asp:GridView>
